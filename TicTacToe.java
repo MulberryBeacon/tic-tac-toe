@@ -15,54 +15,55 @@ public class TicTacToe {
 
 	/** Playing symbols. */
 	private enum Symbol { 
-		EMPTY(0, " "), CIRCLE(1, "\u25CB"), CROSS(2, "X");
-		//EMPTY(0, " "), CIRCLE(1, "\u25EF"), CROSS(2, "X");
-		//EMPTY(0, " "), CIRCLE(1, "\u3007"), CROSS(2, "X");
+		EMPTY(0, " "),
+		CIRCLE(1, "\u25CB"),
+		CROSS(2, "X");
 		
-		/** Integer representation of the playing symbol. */
+		/** Integer value of the playing symbol. */
 		private int value;
 
-		private String text;
+		/** Character representation of the playing symbol */
+		private String character;
 
 		/** 
 		 * Creates an instance of {@Symbol}.
 		 *
-		 * @param value
-		 * @param text
+		 * @param value Integer value
+		 * @param character Character representation
 		 */
-		private Symbol(int value, String text) {
+		private Symbol(int value, String character) {
 			this.value = value;
-			this.text = text;
+			this.character = character;
 		}
 
 		/**
-		 * Gets the value.
+		 * Gets the integer value of the playing symbol.
 		 * 
-		 * @return The integer representation of a playing symbol
+		 * @return The integer value
 		 */
 		public int getValue() {
 			return value;
 		}
 
 		/**
-		 * Gets the text.
+		 * Gets the character representation of the playing symbol.
 		 * 
-		 * @return The integer representation of a playing symbol
+		 * @return The character representation
 		 */
-		public String getText() {
-			return text;
+		public String getCharacter() {
+			return character;
 		}
 
 		/**
-		 * Gets the XML tag for the given textual convention name.
+		 * Gets the character representation of the playing symbol given its integer value.
 		 * 
-		 * @param name Name of the textual convention
-		 * @return The XML tag
+		 * @param value Integer value
+		 * @return The character representation
 		 */
-		public static String getTextFromValue(int value) {
+		public static String getCharacterFromValue(int value) {
 			for (Symbol symbol : Symbol.values()) {
 				if (symbol.value == value) {
-					return symbol.getText();
+					return symbol.getCharacter();
 				}
 			}
 
@@ -469,7 +470,7 @@ public class TicTacToe {
 		StringBuilder builder = new StringBuilder("\n");
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
-				builder.append(j == 0 ? " " : "| ").append(Symbol.getTextFromValue(grid[i][j])).append(" ");
+				builder.append(j == 0 ? " " : "| ").append(Symbol.getCharacterFromValue(grid[i][j])).append(" ");
 			}
 
 			builder.append("\n");
