@@ -96,11 +96,11 @@ public class TicTacToe {
 	private static final Random RANDOM = new Random();
 
 	/** Standard input reader. */
-	private static final Scanner scanner = new Scanner(System.in);
+	private static final Scanner SCANNER = new Scanner(System.in);
 
-	/**  */
+	/** List of playing symbols used for random assignment to players. The empty position value is ignored. */
 	private static final Symbol[] SYMBOL_VALUES = Symbol.values();
-	private static final int SYMBOL_SIZE = SYMBOL_VALUES.length;
+	private static final int SYMBOL_SIZE = SYMBOL_VALUES.length - 1;
 
 	/** Game grid. */
 	private int[][] grid;
@@ -145,26 +145,39 @@ public class TicTacToe {
 	}
 
 	/**
-	 * Game engine that alternates between computer generated and human input moves.
+	 * Game engine that alternates between computer and human generated moves.
 	 */
 	public void play() {
+		int symbolMachine = getRandomSymbol();
+		int symbolHuman = (symbolMachine == Symbol.CIRCLE.getValue()
+			? Symbol.CROSS.getValue()
+			: Symbol.CIRCLE.getValue());
+
+		boolean machineTurn = RANDOM.nextBoolean();
 		int[] position = null;
-		int symbol = getRandomSymbol();
 
 		while (true) {
-			position = chooseMove(Symbol.CIRCLE.getValue());
-			fillPosition(position[0], position[1], Symbol.CIRCLE.getValue());
+			position = chooseMove(symbolMachine);
+			fillPosition(position[0], position[1], symbolMachine);
 			System.out.println("Computer says: (" + ++position[0] + "," + ++position[1] + ")");
 			System.out.println(this);
 			if (isGameOver()) {
+				if (!isGridFull()) {
+					System.out.println("Game over! Bow before your new machine overlord!");
+				}
+
 				break;
 			}
 
 			position = readMove();
-			fillPosition(position[0], position[1], Symbol.CROSS.getValue());
+			fillPosition(position[0], position[1], symbolHuman);
 			System.out.println("Puny human played: (" + ++position[0] + "," + ++position[1] + ")");
 			System.out.println(this);
 			if (isGameOver()) {
+				if (!isGridFull()) {
+					System.out.println("Game over! Humans rule!");
+				}
+
 				break;
 			}
 		}
@@ -215,18 +228,18 @@ public class TicTacToe {
 			System.out.print("Please insert a valid pair of coordinates: ");
 
 			try {
-				if (scanner.hasNextInt()) {
-					x = scanner.nextInt() - 1;
+				if (SCANNER.hasNextInt()) {
+					x = SCANNER.nextInt() - 1;
 				}
 				else {
-					scanner.next();
+					SCANNER.next();
 				}
 
-				if (scanner.hasNextInt()) {
-					y = scanner.nextInt() - 1;
+				if (SCANNER.hasNextInt()) {
+					y = SCANNER.nextInt() - 1;
 				}
 				else {
-					scanner.next();
+					SCANNER.next();
 				}
 			}
 			catch (InputMismatchException e) {
@@ -458,8 +471,7 @@ public class TicTacToe {
 	 * @return The value of the random playing symbol
 	 */
 	private int getRandomSymbol() {
-		int symbol = SYMBOL_VALUES[RANDOM.nextInt(SYMBOL_SIZE)].getValue();
-		return symbol;
+		return SYMBOL_VALUES[RANDOM.nextInt(SYMBOL_SIZE) + 1].getValue();
 	}
 
 	/**
