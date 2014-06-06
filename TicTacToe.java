@@ -1,6 +1,3 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -86,6 +83,9 @@ public class TicTacToe {
 	/** Number of diagonals in the grid. */
 	private static final int DIAGONALS = 2;
 
+	/** Minimum number of plays before one of the players can win. */
+	private static final int MINIMUM_PLAYS = 5;
+
 	/** Indexes used to navigate through the matrixes with information regarding rows, columns and diagonals. */
 	private static final int FILLED = 0;
 	private static final int SYMBOLS = 1;
@@ -101,6 +101,18 @@ public class TicTacToe {
 	/** List of playing symbols used for random assignment to players. The empty position value is ignored. */
 	private static final Symbol[] SYMBOL_VALUES = Symbol.values();
 	private static final int SYMBOL_SIZE = SYMBOL_VALUES.length - 1;
+
+	/** Indexes used to navigate through the matrix with the system messages. */
+	private static final int INDEX_MACHINE = 0;
+	private static final int INDEX_HUMAN = 1;
+	private static final int INDEX_MOVE = 0;
+	private static final int INDEX_WIN = 1;
+
+	/** Messages for both computer and human players. */
+	private static final String[][] MESSAGES = new String[][]{
+		{"Computer says: (%d,%d)", "Game over! Bow before your new machine overlord!"},
+		{"Puny human played: (%d,%d)", "Game over! Humans rule!"}
+	};
 
 	/** Game grid. */
 	private int[][] grid;
@@ -154,32 +166,13 @@ public class TicTacToe {
 			: Symbol.CIRCLE.getValue());
 
 		boolean machineTurn = RANDOM.nextBoolean();
-		int[] position = null;
+		boolean gameInProgress = true;
+		int symbol;
 
-		while (true) {
-			position = chooseMove(symbolMachine);
-			fillPosition(position[0], position[1], symbolMachine);
-			System.out.println("Computer says: (" + ++position[0] + "," + ++position[1] + ")");
-			System.out.println(this);
-			if (isGameOver()) {
-				if (!isGridFull()) {
-					System.out.println("Game over! Bow before your new machine overlord!");
-				}
-
-				break;
-			}
-
-			position = readMove();
-			fillPosition(position[0], position[1], symbolHuman);
-			System.out.println("Puny human played: (" + ++position[0] + "," + ++position[1] + ")");
-			System.out.println(this);
-			if (isGameOver()) {
-				if (!isGridFull()) {
-					System.out.println("Game over! Humans rule!");
-				}
-
-				break;
-			}
+		while (gameInProgress) {
+			symbol = (machineTurn ? symbolMachine : symbolHuman);
+			gameInProgress = move(symbol, machineTurn);
+			machineTurn = !machineTurn;
 		}
 	}
 
@@ -220,7 +213,7 @@ public class TicTacToe {
 	 *
 	 * @return The coordinates of the position that a human player considers to be the best possible move
 	 */
-	public int[] readMove() {
+	private int[] readMove() {
 		int x = -1;
 		int y = -1;
 
@@ -273,7 +266,7 @@ public class TicTacToe {
 	 * @param symbol Playing symbol
 	 * @return The coordinates of the position that is the best possible move
 	 */
-	public int[] chooseMove(int symbol) {
+	private int[] chooseMove(int symbol) {
 
 		int[] position = null;
 
@@ -281,7 +274,10 @@ public class TicTacToe {
 		// If the grid is still empty or if only one move has been played by the opponent, randomly choose one of the
 		// corners and play
 		if (isGridEmpty() || plays == 1) {
-			position = getRandomCorner();
+			do {
+				position = getRandomCorner();
+			}
+			while (!isPositionEmpty(position[0], position[1]));
 		}
 
 		// Case 2:
@@ -291,6 +287,16 @@ public class TicTacToe {
 		// last position.
 		if (position == null) {
 			position = checkForNearWin(symbol);
+		}
+
+		// Case 3:
+		// Look for free corners in order to increase the chances of setting up two simultaneous near win situations.
+		// The puny human will only be able to prevent one of them and will inevitably lose the game.
+		if (position == null) {
+			do {
+				position = getRandomCorner();
+			}
+			while (!isPositionEmpty(position[0], position[1]));
 		}
 
 		// Case n:
@@ -306,11 +312,40 @@ public class TicTacToe {
 	}
 
 	/**
+	 * Performs a move in the grid.
+	 * The chosen move and the updated grid are displayed.
+	 *
+	 * @param symbol Playing symbol of the current player
+	 * @param machineTurn Flag that indicates if it's the machine's turn to play
+	 * @return True if the move doesn't end the game; false otherwise
+	 */
+	private boolean move(int symbol, boolean machineTurn) {
+		int[] position = (machineTurn ? chooseMove(symbol) : readMove());
+		fillPosition(position[0], position[1], symbol);
+		int index = (machineTurn ? INDEX_MACHINE : INDEX_HUMAN);
+		System.out.println(String.format(MESSAGES[index][INDEX_MOVE], ++position[0], ++position[1]));
+		System.out.println(this);
+		if (isGameOver()) {
+			if (!isGridFull()) {
+				System.out.println(MESSAGES[index][INDEX_WIN]);
+			}
+
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Checks if the game is over.
 	 *
 	 * @return True if a winning configuration has been reached or if the grid is full; false otherwise
 	 */
-	public boolean isGameOver() {
+	private boolean isGameOver() {
+		if (plays < MINIMUM_PLAYS) {
+			return false;
+		}
+
 		if (isGridFull()) {
 			return true;
 		}
@@ -429,7 +464,7 @@ public class TicTacToe {
 			}
 
 			// Checks the current diagonal
-			if (i < SIZE - 1) {
+			if (i < DIAGONALS) {
 				if (isNearWin(diagonals, i)) {
 					result = new int[]{SIZE - diagonals[i][COORDINATES], SIZE - diagonals[i][COORDINATES_Y]};
 					if (diagonals[i][SYMBOLS] == symbol * (SIZE - 1)) {
