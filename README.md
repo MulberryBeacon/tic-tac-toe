@@ -99,11 +99,10 @@ Game over! Humans rule!
 
 ## Dependencies
 
-All development and testing activities are carried out on Linux using version 1.7.0_55 of the Java OpenJDK Runtime Environment.
+All development and testing activities were carried out on Linux using version 1.7.0_55 of the Java OpenJDK Runtime Environment.
 
 ## License
 
 Copyright (c) 2014 Eduardo Ferreira
 
 The code in this repository is MIT licensed, and therefore free to use as you please for commercial or non-commercial purposes (see [LICENSE](LICENSE) for details).
-
