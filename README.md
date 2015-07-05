@@ -118,7 +118,7 @@ Java                             1             75            192            273
 
 ```sh
 SLOC	Directory	SLOC-by-Language (Sorted)
-273     top_dir         java=273
+273     top_dir     java=273
 
 Totals grouped by language (dominant language first):
 java:           273 (100.00%)
@@ -129,8 +129,10 @@ Development Effort Estimate, Person-Years (Person-Months) = 0.05 (0.61)
 Schedule Estimate, Years (Months)                         = 0.17 (2.08)
  (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
 Estimated Average Number of Developers (Effort/Schedule)  = 0.30
-Total Estimated Cost to Develop                           = $ 6,912
- (average salary = $56,286/year, overhead = 2.40).
+Total Estimated Cost to Develop                           = $ 2,648
+ (average salary = $86,261/year, overhead = 0.60).
+
+Generated using David A. Wheeler's 'SLOCCount'.
 ```
 
 ## License
