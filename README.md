@@ -101,6 +101,38 @@ Game over! Humans rule!
 
 All development and testing activities were carried out on Linux using version 1.7.0_55 of the Java OpenJDK Runtime Environment.
 
+## Code metrics
+
+* CLOC
+
+```sh
+http://cloc.sourceforge.net v 1.62  T=0.09 s (11.7 files/s, 6300.9 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Java                             1             75            192            273
+-------------------------------------------------------------------------------
+```
+
+* SLOCCount
+
+```sh
+SLOC	Directory	SLOC-by-Language (Sorted)
+273     top_dir         java=273
+
+Totals grouped by language (dominant language first):
+java:           273 (100.00%)
+
+Total Physical Source Lines of Code (SLOC)                = 273
+Development Effort Estimate, Person-Years (Person-Months) = 0.05 (0.61)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.17 (2.08)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 0.30
+Total Estimated Cost to Develop                           = $ 6,912
+ (average salary = $56,286/year, overhead = 2.40).
+```
+
 ## License
 
 Copyright (c) 2014 Eduardo Ferreira
