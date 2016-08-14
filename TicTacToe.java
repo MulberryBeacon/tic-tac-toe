@@ -23,7 +23,7 @@ public class TicTacToe {
         private String character;
 
         /** 
-         * Creates an instance of {@Symbol}.
+         * Creates an instance of {@link Symbol}.
          *
          * @param value Integer value
          * @param character Character representation
@@ -95,9 +95,6 @@ public class TicTacToe {
     /** Random number generator. */
     private static final Random RANDOM = new Random();
 
-    /** Standard input reader. */
-    private static final Scanner SCANNER = new Scanner(System.in);
-
     /** List of playing symbols used for random assignment to players. The empty position value is ignored. */
     private static final Symbol[] SYMBOL_VALUES = Symbol.values();
     private static final int SYMBOL_SIZE = SYMBOL_VALUES.length - 1;
@@ -146,7 +143,7 @@ public class TicTacToe {
     private int plays;
 
     /**
-     * Creates an instance of {@TicTacToe}.
+     * Creates an instance of {@link TicTacToe}.
      */
     public TicTacToe() {
         grid = new int[SIZE][SIZE];
@@ -217,22 +214,22 @@ public class TicTacToe {
         int x = -1;
         int y = -1;
 
+        Scanner scanner = new Scanner(System.in);
+
         while (true) {
             System.out.print("Please insert a valid pair of coordinates: ");
 
             try {
-                if (SCANNER.hasNextInt()) {
-                    x = SCANNER.nextInt() - 1;
-                }
-                else {
-                    SCANNER.next();
+                if (scanner.hasNextInt()) {
+                    x = scanner.nextInt() - 1;
+                } else {
+                    scanner.next();
                 }
 
-                if (SCANNER.hasNextInt()) {
-                    y = SCANNER.nextInt() - 1;
-                }
-                else {
-                    SCANNER.next();
+                if (scanner.hasNextInt()) {
+                    y = scanner.nextInt() - 1;
+                } else {
+                    scanner.next();
                 }
             }
             catch (InputMismatchException e) {
