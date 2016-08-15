@@ -86,7 +86,10 @@ public class TicTacToe {
     /** Minimum number of plays before one of the players can win. */
     private static final int MINIMUM_PLAYS = 5;
 
-    /** Indexes used to navigate through the matrixes with information regarding rows, columns and diagonals. */
+    /**
+     * Indexes used to navigate through the matrixes with information regarding rows, columns and
+     * diagonals.
+     */
     private static final int FILLED = 0;
     private static final int SYMBOLS = 1;
     private static final int COORDINATES = 2;
@@ -98,7 +101,10 @@ public class TicTacToe {
     /** Standard input reader. */
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    /** List of playing symbols used for random assignment to players. The empty position value is ignored. */
+    /**
+     * List of playing symbols used for random assignment to players.
+     * The empty position value is ignored.
+     */
     private static final Symbol[] SYMBOL_VALUES = Symbol.values();
     private static final int SYMBOL_SIZE = SYMBOL_VALUES.length - 1;
 
@@ -211,7 +217,8 @@ public class TicTacToe {
     /**
      * Reads the coordinates inserted by a human player in the console.
      *
-     * @return The coordinates of the position that a human player considers to be the best possible move
+     * @return The coordinates of the position that a human player considers to be the best possible
+     *         move
      */
     private int[] readMove() {
         int x = -1;
@@ -265,8 +272,8 @@ public class TicTacToe {
         int[] position = null;
 
         // Case 1:
-        // If the grid is still empty or if only one move has been played by the opponent, randomly choose one of the
-        // corners and play
+        // If the grid is still empty or if only one move has been played by the opponent, randomly
+        // choose one of the corners and play
         if (isGridEmpty() || plays == 1) {
             do {
                 position = getRandomCorner();
@@ -275,16 +282,17 @@ public class TicTacToe {
         }
 
         // Case 2:
-        // Check if there is a near win situation and take it, thus defeating the puny human and claiming bragging
-        // righs over the Human race!
-        // Alas, the puny human might be in a near win situation. If so, proceeds to cutting him off by filling the
-        // last position.
+        // Check if there is a near win situation and take it, thus defeating the puny human and
+        // claiming bragging righs over the Human race!
+        // Alas, the puny human might be in a near win situation. If so, proceeds to cutting him off
+        // by filling the last position.
         if (position == null) {
             position = checkForNearWin(symbol);
         }
 
         // Case 3:
-        // Look for free corners in order to increase the chances of setting up two simultaneous near win situations.
+        // Look for free corners in order to increase the chances of setting up two simultaneous
+        // near win situations.
         // The puny human will only be able to prevent one of them and will inevitably lose the game.
         if (position == null) {
             do {
@@ -333,7 +341,8 @@ public class TicTacToe {
     /**
      * Checks if the game is over.
      *
-     * @return True if a winning configuration has been reached or if the grid is full; false otherwise
+     * @return True if a winning configuration has been reached or if the grid is full;
+     *         false otherwise
      */
     private boolean isGameOver() {
         if (plays < MINIMUM_PLAYS) {
@@ -345,7 +354,9 @@ public class TicTacToe {
         }
 
         for (int i = 0; i < SIZE; i++) {
-            if (isFullWin(rows, i) || isFullWin(columns, i) || (i < SIZE - 1 && isFullWin(diagonals, i))) {
+            if (isFullWin(rows, i)
+                || isFullWin(columns, i)
+                || (i < SIZE - 1 && isFullWin(diagonals, i))) {
                 return true;
             }
         }
@@ -354,8 +365,8 @@ public class TicTacToe {
     }
 
     /**
-     * Checks if there is a full win configuration in the given structure, which might be related to rows, columns or
-     * diagonals.
+     * Checks if there is a full win configuration in the given structure, which might be related to
+     * rows, columns or diagonals.
      *
      * @param structure Structure 
      * @param index Index of the structure entry
@@ -366,8 +377,8 @@ public class TicTacToe {
     }
 
     /**
-     * Checks if there is a near win configuration in the given structure, which might be related to rows, columns or
-     * diagonals.
+     * Checks if there is a near win configuration in the given structure, which might be related to
+     * rows, columns or diagonals.
      *
      * @param structure Structure 
      * @param index Index of the structure entry
@@ -429,12 +440,13 @@ public class TicTacToe {
     }
 
     /**
-     * Searches the grid to see if the opponent is in a near win situation, with two values already filled in a row,
-     * column or diagonal. If so, determines the coordinates of the remaining position that needs to be filled in order
-     * to prevent the opponent to win.
+     * Searches the grid to see if the opponent is in a near win situation, with two values already
+     * filled in a row, column or diagonal. If so, determines the coordinates of the remaining
+     * position that needs to be filled in order to prevent the opponent to win.
      *
      * @param symbol Playing symbol
-     * @return The coordinates of the position that needs to be filled in order to prevent the opponent to win
+     * @return The coordinates of the position that needs to be filled in order to prevent the
+     *         opponent to win
      */
     private int[] checkForNearWin(int symbol) {
         int[] result = null;
@@ -460,7 +472,11 @@ public class TicTacToe {
             // Checks the current diagonal
             if (i < DIAGONALS) {
                 if (isNearWin(diagonals, i)) {
-                    result = new int[]{SIZE - diagonals[i][COORDINATES], SIZE - diagonals[i][COORDINATES_Y]};
+                    result = new int[]{
+                        SIZE - diagonals[i][COORDINATES],
+                        SIZE - diagonals[i][COORDINATES_Y]
+                    };
+
                     if (diagonals[i][SYMBOLS] == symbol * (SIZE - 1)) {
                         return result;
                     }
@@ -511,7 +527,9 @@ public class TicTacToe {
         StringBuilder builder = new StringBuilder("\n");
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                builder.append(j == 0 ? " " : "| ").append(Symbol.getCharacterFromValue(grid[i][j])).append(" ");
+                builder.append(j == 0 ? " " : "| ")
+                    .append(Symbol.getCharacterFromValue(grid[i][j]))
+                    .append(" ");
             }
 
             builder.append("\n");
