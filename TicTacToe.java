@@ -1,5 +1,7 @@
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -17,7 +19,7 @@ public class TicTacToe {
         CROSS(2, "\u2A2F");
 
         /** Integer value of the playing symbol. */
-        private int value;
+        private Integer value;
 
         /** Character representation of the playing symbol */
         private String character;
@@ -28,7 +30,7 @@ public class TicTacToe {
          * @param value Integer value
          * @param character Character representation
          */
-        private Symbol(int value, String character) {
+        private Symbol(Integer value, String character) {
             this.value = value;
             this.character = character;
         }
@@ -38,7 +40,7 @@ public class TicTacToe {
          * 
          * @return The integer value
          */
-        public int getValue() {
+        public Integer getValue() {
             return value;
         }
 
@@ -57,14 +59,18 @@ public class TicTacToe {
          * @param value Integer value
          * @return The character representation
          */
-        public static String getCharacterFromValue(int value) {
-            for (Symbol symbol : Symbol.values()) {
-                if (symbol.value == value) {
-                    return symbol.getCharacter();
-                }
+        public static Symbol getCharacterFromValue(Integer value)
+            throws IllegalArgumentException {
+
+            if (!Optional.ofNullable(value).isPresent()) {
+                throw new IllegalArgumentException("Value cannot be null or empty!");
             }
 
-            return null;
+            return Arrays.asList(Symbol.values()).stream()
+                    .filter(symbol -> symbol.value == value)
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException(
+                        "Cannot create a Symbol instance from value: " + value));
         }
     }
 
@@ -528,7 +534,7 @@ public class TicTacToe {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 builder.append(j == 0 ? " " : "| ")
-                    .append(Symbol.getCharacterFromValue(grid[i][j]))
+                    .append(Symbol.getCharacterFromValue(grid[i][j]).getCharacter())
                     .append(" ");
             }
 
