@@ -137,6 +137,6 @@ Generated using David A. Wheeler's 'SLOCCount'.
 
 ## License
 
-Copyright (c) 2014 Eduardo Ferreira
+Copyright (c) 2014-2016 Eduardo Ferreira
 
 The code in this repository is MIT licensed, and therefore free to use as you please for commercial or non-commercial purposes (see [LICENSE](LICENSE) for details).

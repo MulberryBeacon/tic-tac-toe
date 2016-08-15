@@ -14,8 +14,8 @@ public class TicTacToe {
     private enum Symbol { 
         EMPTY(0, " "),
         CIRCLE(1, "\u25CB"),
-        CROSS(2, "X");
-        
+        CROSS(2, "\u2A2F");
+
         /** Integer value of the playing symbol. */
         private int value;
 
@@ -94,6 +94,9 @@ public class TicTacToe {
 
     /** Random number generator. */
     private static final Random RANDOM = new Random();
+
+    /** Standard input reader. */
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     /** List of playing symbols used for random assignment to players. The empty position value is ignored. */
     private static final Symbol[] SYMBOL_VALUES = Symbol.values();
@@ -214,34 +217,28 @@ public class TicTacToe {
         int x = -1;
         int y = -1;
 
-        Scanner scanner = new Scanner(System.in);
-
         while (true) {
             System.out.print("Please insert a valid pair of coordinates: ");
 
             try {
-                if (scanner.hasNextInt()) {
-                    x = scanner.nextInt() - 1;
+                if (SCANNER.hasNextInt()) {
+                    x = SCANNER.nextInt() - 1;
                 } else {
-                    scanner.next();
+                    SCANNER.next();
                 }
 
-                if (scanner.hasNextInt()) {
-                    y = scanner.nextInt() - 1;
+                if (SCANNER.hasNextInt()) {
+                    y = SCANNER.nextInt() - 1;
                 } else {
-                    scanner.next();
+                    SCANNER.next();
                 }
-            }
-            catch (InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.err.println("\nERROR: An incorrect number was read.\n");
-            }
-            catch (NoSuchElementException e) {
+            } catch (NoSuchElementException e) {
                 System.err.println("\nERROR: There is no more input to read.\n");
-            }
-            catch (IllegalStateException e) {
+            } catch (IllegalStateException e) {
                 System.err.println("\nERROR: Cannot read any more input.\n");
-            }
-            finally {
+            } finally {
                 if (!isPositionValid(x, y)) {
                     System.err.println("\nERROR: The position you chose has invalid coordinates.\n");
                     continue;
