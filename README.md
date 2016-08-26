@@ -2,11 +2,11 @@ Tic-tac-toe
 ===========
 
 A simple implementation of the good old Tic-tac-toe game.
-For more information on the game, please see: http://en.wikipedia.org/wiki/Tic_tac_toe
 
 ## Instructions
 
-To run the game, just compile the source code and run it as any run-of-the-mill Java program:
+To run the game, just compile the source code and run it as any run-of-the-mill
+Java program:
 
 ```sh
 $ javac TicTacToe.java
@@ -89,7 +89,8 @@ Game over! Bow before your new machine overlord!
 
 ## Dependencies
 
-All development and testing activities were carried out on Linux using version 1.8.0_101 of the Java OpenJDK Runtime Environment.
+All development and testing activities were carried out on Linux using version
+1.8.0_101 of the Java OpenJDK Runtime Environment.
 
 ## Code metrics
 
@@ -129,4 +130,6 @@ SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
 
 Copyright (c) 2014-2016 Eduardo Ferreira
 
-The code in this repository is MIT licensed, and therefore free to use as you please for commercial or non-commercial purposes (see [LICENSE](LICENSE) for details).
+The code in this repository is MIT licensed, and therefore free to use as you
+please for commercial or non-commercial purposes (see [LICENSE](LICENSE) for
+details).
