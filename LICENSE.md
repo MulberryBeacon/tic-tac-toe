@@ -1,4 +1,5 @@
 The MIT License (MIT)
+=====================
 
 Copyright (c) 2014-2016 Eduardo Ferreira
 
