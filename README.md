@@ -8,84 +8,80 @@ A simple implementation of the good old Tic-tac-toe game.
 To run the game, just compile the source code and run it as any run-of-the-mill
 Java program:
 
-```sh
-$ javac TicTacToe.java
-$ java TicTacToe
-```
+    $ javac TicTacToe.java
+    $ java TicTacToe
 
 ## Examples
 
 Here's an example run between the program and a human player:
 
-```sh
-Computer says: (1,1)
+    Computer says: (1,1)
 
- ⨯ |   |   
----+---+---
-   |   |   
----+---+---
-   |   |   
-
-
-Please insert a valid pair of coordinates: 1 3
-Puny human played: (1,3)
-
- ⨯ |   | ○ 
----+---+---
-   |   |   
----+---+---
-   |   |   
+     ⨯ |   |   
+    ---+---+---
+       |   |   
+    ---+---+---
+       |   |   
 
 
-Computer says: (3,1)
+    Please insert a valid pair of coordinates: 1 3
+    Puny human played: (1,3)
 
- ⨯ |   | ○ 
----+---+---
-   |   |   
----+---+---
- ⨯ |   |   
-
-
-Please insert a valid pair of coordinates: 2 1
-Puny human played: (2,1)
-
- ⨯ |   | ○ 
----+---+---
- ○ |   |   
----+---+---
- ⨯ |   |   
+     ⨯ |   | ○ 
+    ---+---+---
+       |   |   
+    ---+---+---
+       |   |   
 
 
-Computer says: (3,3)
+    Computer says: (3,1)
 
- ⨯ |   | ○ 
----+---+---
- ○ |   |   
----+---+---
- ⨯ |   | ⨯ 
-
-
-Please insert a valid pair of coordinates: 2 2
-Puny human played: (2,2)
-
- ⨯ |   | ○ 
----+---+---
- ○ | ○ |   
----+---+---
- ⨯ |   | ⨯ 
+     ⨯ |   | ○ 
+    ---+---+---
+       |   |   
+    ---+---+---
+     ⨯ |   |   
 
 
-Computer says: (3,2)
+    Please insert a valid pair of coordinates: 2 1
+    Puny human played: (2,1)
 
- ⨯ |   | ○ 
----+---+---
- ○ | ○ |   
----+---+---
- ⨯ | ⨯ | ⨯ 
+     ⨯ |   | ○ 
+    ---+---+---
+     ○ |   |   
+    ---+---+---
+     ⨯ |   |   
 
 
-Game over! Bow before your new machine overlord!
-```
+    Computer says: (3,3)
+
+     ⨯ |   | ○ 
+    ---+---+---
+     ○ |   |   
+    ---+---+---
+     ⨯ |   | ⨯ 
+
+
+    Please insert a valid pair of coordinates: 2 2
+    Puny human played: (2,2)
+
+     ⨯ |   | ○ 
+    ---+---+---
+     ○ | ○ |   
+    ---+---+---
+     ⨯ |   | ⨯ 
+
+
+    Computer says: (3,2)
+
+     ⨯ |   | ○ 
+    ---+---+---
+     ○ | ○ |   
+    ---+---+---
+     ⨯ | ⨯ | ⨯ 
+
+
+    Game over! Bow before your new machine overlord!
 
 ## Dependencies
 
